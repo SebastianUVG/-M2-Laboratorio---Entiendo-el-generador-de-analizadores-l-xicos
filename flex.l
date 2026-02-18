@@ -17,6 +17,10 @@ ID      [a-zA-Z_][a-zA-Z0-9_]*
 
 %%
 
+"//".*     { /* ignorar */ }
+"/*"([^*]|\*+[^*/])*\*+"/"    { /* ignorar */ }
+
+
 "=="        { printf("Relacional: ==\n"); }
 "!="        { printf("Relacional: !=\n"); }
 "<="        { printf("Relacional: <=\n"); }
@@ -35,15 +39,15 @@ ID      [a-zA-Z_][a-zA-Z0-9_]*
 "/"     { printf("Aritmetico: /\n"); }
 
 
-{CIENTIFICOS}       {printf("CIENTIFICO: %s\n", yytext); }
-{HEXADECIMALES}     {printf("HEX: %s\n", yytext); }
-{FLOTANTES}    {printf("FLOTANTE: %s\n", yytext); }
-{ENTEROS}       {printf("ENTERO: %s\n", yytext); }
-{ID}        {printf("IDENTIFICADOR: %s\n", yytext); }
+{CIENTIFICOS}       {printf("Cientificos: %s\n", yytext); }
+{HEXADECIMALES}     {printf("Hexadecimales: %s\n", yytext); }
+{FLOTANTES}    {printf("Flotantes: %s\n", yytext); }
+{ENTEROS}       {printf("Entero: %s\n", yytext); }
+{ID}        {printf("Identificador: %s\n", yytext); }
 
 [ \t\n]+        { }
 
-.       { printf("NO RECONOCIDO: %s\n", yytext); }
+.       { printf("No Reconocido: %s\n", yytext); }
 
 
 %%
