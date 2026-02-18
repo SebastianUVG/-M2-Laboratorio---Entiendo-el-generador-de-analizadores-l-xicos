@@ -12,13 +12,14 @@ FLOTANTES       {DIGITO}+"."{DIGITO}+
 ID      [a-zA-Z_][a-zA-Z0-9_]*
 
 
-
-
-
 %%
 
-"//".*     { /* ignorar */ }
-"/*"([^*]|\*+[^*/])*\*+"/"    { /* ignorar */ }
+\/\/.*                              { /* ignorar comentario de línea */ }
+\/\*([^*]|\*+[^*/])*\*+\/            { /* ignorar comentario multilínea */ }
+
+\"([^\\\"]|\\[nt\"\\])*\"    {
+    printf("Cadena: %s\n", yytext);
+}
 
 
 "=="        { printf("Relacional: ==\n"); }
@@ -39,15 +40,15 @@ ID      [a-zA-Z_][a-zA-Z0-9_]*
 "/"     { printf("Aritmetico: /\n"); }
 
 
-{CIENTIFICOS}       {printf("Cientificos: %s\n", yytext); }
-{HEXADECIMALES}     {printf("Hexadecimales: %s\n", yytext); }
-{FLOTANTES}    {printf("Flotantes: %s\n", yytext); }
+{CIENTIFICOS}       {printf("Cientifico: %s\n", yytext); }
+{HEXADECIMALES}     {printf("Hexadecimal: %s\n", yytext); }
+{FLOTANTES}    {printf("Flotante: %s\n", yytext); }
 {ENTEROS}       {printf("Entero: %s\n", yytext); }
-{ID}        {printf("Identificador: %s\n", yytext); }
+{ID}        {printf("\033[1;34mIDENTIFICADOR: %s\033[0m\n", yytext);}
 
-[ \t\n]+        { }
+[[:space:]]+    { /* ignorar espacios en blanco */ }
 
-.       { printf("No Reconocido: %s\n", yytext); }
+.       { printf("NO RECONOCIDO: %s\n", yytext); }
 
 
 %%
