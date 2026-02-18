@@ -5,26 +5,46 @@
 /* Definiciones */
 LETRA       [a-zA-Z]
 DIGITO      [0-9]
-ID          ({LETRA}|_)({LETRA}|{DIGITO}|_)*
+ENTEROS     {DIGITO}+
+HEXADECIMALES       0[xX][0-9a-fA-F]+
+CIENTIFICOS     {DIGITO}+(\.{DIGITO}+)?[eE][+-]?{DIGITO}+
+FLOTANTES       {DIGITO}+"."{DIGITO}+
+ID      [a-zA-Z_][a-zA-Z0-9_]*
 
-ENTEROS     [0-9]+
-FLOTANTES       [0-9]+"."[0-9]+
-CIENTIFICOS     ([0-9]+"."[0-9]+|[0-9]+)[eE][+-]?[0-9]+
-HEXADECIMALES   0[xX][0-9a-fA-F]+
+
+
 
 
 %%
 
-{CIENTIFICOS}   {printf("Numero Cientificos: %s\n" , yytext);}
-{FLOTANTES}     {printf("Numero Flotantes: %s\n" , yytext);}
-{HEXADECIMALES}     {printf("Numero Hexadecimaless: %s\n" , yytext);}
-{ENTEROS}       {printf("Numero Enteros: %s\n" , yytext);}
+"=="        { printf("Relacional: ==\n"); }
+"!="        { printf("Relacional: !=\n"); }
+"<="        { printf("Relacional: <=\n"); }
+">="        { printf("Relacional: >=\n"); }
+
+"&&"        { printf("Logico : &&\n"); }
+"||"        { printf("Logico: ||\n"); }
+
+"<"     { printf("Relacional : <\n"); }
+">"     { printf("Relacional: >\n"); }
+"!"     { printf("Logico: !\n"); }
+
+"+"     { printf("Aritmetico: +\n"); }
+"-"     { printf("Aritmetico: -\n"); }
+"*"     { printf("Aritmetico: *\n"); }
+"/"     { printf("Aritmetico: /\n"); }
 
 
+{CIENTIFICOS}       {printf("CIENTIFICO: %s\n", yytext); }
+{HEXADECIMALES}     {printf("HEX: %s\n", yytext); }
+{FLOTANTES}    {printf("FLOTANTE: %s\n", yytext); }
+{ENTEROS}       {printf("ENTERO: %s\n", yytext); }
+{ID}        {printf("IDENTIFICADOR: %s\n", yytext); }
 
-{ID}        { printf("IDENTIFICADOR: %s\n", yytext); }
-[ \t\n]+    { /* ignorar espacios */ }
-.           { printf("CARACTER NO VALIDO: %s\n", yytext); }
+[ \t\n]+        { }
+
+.       { printf("NO RECONOCIDO: %s\n", yytext); }
+
 
 %%
 
